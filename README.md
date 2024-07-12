@@ -48,3 +48,48 @@ dotnet ef migrations add InitialCreate -p Infrastructure -s API -o Data/Migratio
 - Help avoid duplicate code
 - Type safety
 - Mostly use generics rather than create them
+
+## specification pattern 
+
+# The specification pattern to the rescue
+
+- Describes a query in an object
+- Return an IQueryable<T>
+- Generic list method takes specificitation as parameter
+- Specification can have meaningful name e.g ProductsWithTypesAndBrandSpecification
+
+### Definindo a interface Specification que todas as especificações devem seguir
+public interface ISpecification<T>
+{
+    bool IsSatisfiedBy(T entity);
+}
+
+### Criando uma classe Specification para verificar se um número é par
+public class IsEvenSpecification : ISpecification<int>
+{
+    public bool IsSatisfiedBy(int number)
+    {
+        return number % 2 == 0;
+    }
+}
+
+### Exemplo de uso do padrão Specification
+public class Program
+{
+    public static void Main()
+    {
+        ## Criando uma instância da classe Specification para verificar se um número é par
+        var isEvenSpec = new IsEvenSpecification();
+
+        ## Verificando se um número é par utilizando a classe Specification criada
+        int numberToCheck = 4;
+        if (isEvenSpec.IsSatisfiedBy(numberToCheck))
+        {
+            Console.WriteLine($"{numberToCheck} é um número par");
+        }
+        else
+        {
+            Console.WriteLine($"{numberToCheck} não é um número par");
+        }
+    }
+}
