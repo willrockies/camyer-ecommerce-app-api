@@ -11,7 +11,7 @@
 - seeding data
 - Migration and startup
 
-# Insfrasctructure layer
+# Infrasctructure layer
 Responsible for dealing with Data store
 
 - Repository 
@@ -42,3 +42,9 @@ dotnet ef database drop -p Infrastructure -s API
 dotnet ef migrations remove -p Infrastructure -s API
 
 dotnet ef migrations add InitialCreate -p Infrastructure -s API -o Data/Migrations
+
+## Api Generic repository
+
+- Help avoid duplicate code
+- Type safety
+- Mostly use generics rather than create them
