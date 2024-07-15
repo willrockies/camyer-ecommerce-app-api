@@ -1,3 +1,4 @@
+using Core.Dtos;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
@@ -22,20 +23,39 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts()
+        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts()
         {
             var spec = new ProductsWithTypesSpecification();
             var products = await _productRepo.ListAsync(spec);
             
-            return Ok(products);
+            //return Ok(products);
+
+            return products.Select(product => new ProductToReturnDto
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                PictureUrl = product.PictureUrl,
+                ProductType = product.ProductType.Name
+            }).ToList();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {
             var spec = new ProductsWithTypesSpecification(id);
 
-            return await _productRepo.GetEntityWithSpecification(spec);
+            var product =  await _productRepo.GetEntityWithSpecification(spec);
+            return new ProductToReturnDto
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                PictureUrl = product.PictureUrl,
+                ProductType = product.ProductType.Name
+            };
         }
 
         [HttpGet("types")]
