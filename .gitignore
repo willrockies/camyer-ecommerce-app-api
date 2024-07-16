@@ -11,6 +11,7 @@
 *.sln.docstates
 API/bin/
 API/obj/
+API/wwwroot
 camyer.db
 
 
