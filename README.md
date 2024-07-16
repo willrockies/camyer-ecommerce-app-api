@@ -99,3 +99,14 @@ A: Possibly. Every app is different test!
 
 Q: How do I use theInclude? the spec pattern only allows us to go one level deep
 A: Not needed for this app. Plaease see attached PDF how to do this
+
+
+## API Error Handling 
+
+ - Error handling and exceptions 
+ - Develop exception page
+ - Validation errors
+ - Http response errors
+ - Customising the error handling 
+ - Middleware
+ - Swagger
