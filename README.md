@@ -110,3 +110,18 @@ A: Not needed for this app. Plaease see attached PDF how to do this
  - Customising the error handling 
  - Middleware
  - Swagger
+
+
+ ## API Pagination Filtering Sorting Searching
+
+ # Pagination
+    - perfomance
+    - parameters passed by query string
+    - Page size should be limited
+    - We should always page results
+
+    - Query commands are stored in a variable
+    - Execution of the query is deferred
+    - IQueryable<T> creates an expression tree
+    - Execution:
+        .ToList(), ToArray(), ToDictionary(), Count() or others singleton queries 
