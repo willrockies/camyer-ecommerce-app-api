@@ -10,7 +10,9 @@ namespace Core.Specifications
 {
     public class ProductsWithTypesSpecification : BaseSpecification<Product>
     {
-        public ProductsWithTypesSpecification(string sort)
+        public ProductsWithTypesSpecification(string sort, int? typeId)
+            : base(x => 
+            (!typeId.HasValue || x.ProductTypeId == typeId))
         {
             AddInclude(x => x.ProductType);
             AddOrderBy(x => x.Name);
