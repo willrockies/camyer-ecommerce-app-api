@@ -11,7 +11,8 @@ namespace Core.Specifications
     public class ProductsWithTypesSpecification : BaseSpecification<Product>
     {
         public ProductsWithTypesSpecification(ProductSpecParams productParams)
-            : base(x => 
+            : base(x =>
+            (string.IsNullOrEmpty(productParams.Search) || x.Name.ToLower().Contains(productParams.Search)) &&
             (!productParams.TypeId.HasValue || x.ProductTypeId == productParams.TypeId))
         {
             AddInclude(x => x.ProductType);
