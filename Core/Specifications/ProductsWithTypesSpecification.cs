@@ -10,16 +10,17 @@ namespace Core.Specifications
 {
     public class ProductsWithTypesSpecification : BaseSpecification<Product>
     {
-        public ProductsWithTypesSpecification(string sort, int? typeId)
+        public ProductsWithTypesSpecification(ProductSpecParams productParams)
             : base(x => 
-            (!typeId.HasValue || x.ProductTypeId == typeId))
+            (!productParams.TypeId.HasValue || x.ProductTypeId == productParams.TypeId))
         {
             AddInclude(x => x.ProductType);
             AddOrderBy(x => x.Name);
+            ApplyPaging(productParams.PageSize * (productParams.PageIndex - 1), productParams.PageSize);
 
-            if (!string.IsNullOrEmpty(sort))
+            if (!string.IsNullOrEmpty(productParams.Sort))
             {
-                switch(sort)
+                switch(productParams.Sort)
                 {
                     case "priceAsc":
                         AddOrderBy(x => x.Price);
