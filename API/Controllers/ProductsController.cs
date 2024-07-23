@@ -1,4 +1,5 @@
 using API.Errors;
+using API.Helpers;
 using AutoMapper;
 using Core.Dtos;
 using Core.Entities;
@@ -30,14 +31,19 @@ namespace API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts([FromQuery] ProductSpecParams productParams)
+        public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery] ProductSpecParams productParams)
         {
-            var spec = new ProductsWithTypesSpecification(productParams.Sort, productParams.TypeId);
+            var spec = new ProductsWithTypesSpecification(productParams);
+            var countSpec = new ProductWithFiltersForCounterSpecification(productParams);
+            var totalItems = await _productRepo.CountAsync(countSpec);
+
             var products = await _productRepo.ListAsync(spec);
             if (products == null) return NotFound(new ApiResponse(404));
             //return Ok(products);
 
-            return Ok(_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products));
+            var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
+
+            return Ok(new Pagination<ProductToReturnDto>(productParams.PageIndex, productParams.PageSize, totalItems, data ));
         }
 
         [HttpGet("{id}")]
