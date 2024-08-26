@@ -1,4 +1,5 @@
 ﻿using API.Errors;
+using API.Extensions;
 using Core.Dtos;
 using Core.Entities.Identity;
 using Core.Interfaces;
@@ -29,11 +30,11 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
-            //cleaner code Option
             //var email = HttpContext.User?.Claims?.FirstOrDefault(
             //        x => x.Type == ClaimTypes.Email)?.Value;
-            var email = User.FindFirstValue(ClaimTypes.Email);
-            var user = await _userManager.FindByEmailAsync(email);
+            //cleaner code Option
+            //var email = User.FindFirstValue(ClaimTypes.Email);
+            var user = await _userManager.FindByEmailFromClaimsPrincipal(User);
             return new UserDto 
             { 
                 DisplayName  = user.DisplayName,
@@ -56,7 +57,8 @@ namespace API.Controllers
             //var email = HttpContext.User?.Claims?.FirstOrDefault(
             //        x => x.Type == ClaimTypes.Email)?.Value;
             var email = User.FindFirstValue(ClaimTypes.Email);
-            var user = await _userManager.FindByEmailAsync(email);
+
+            var user = await _userManager.FindUserByClaimsPrincipleWithAddress(User);
 
             return user.Address;
         }
