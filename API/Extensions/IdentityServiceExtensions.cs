@@ -16,7 +16,7 @@ namespace API.Extensions
                 opt.UseSqlite(config.GetConnectionString("IdentityConnection"));
             });
             
-            services.AddIdentityCore<AppIdentityDbContext>(opt =>
+            services.AddIdentityCore<AppUser>(opt =>
             {
                 // add identity options here
             })
