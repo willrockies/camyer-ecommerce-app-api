@@ -1,14 +1,13 @@
 ﻿using API.Errors;
 using API.Extensions;
 using AutoMapper;
-using Core.Dtos;
+using API.Dtos;
 using Core.Entities.Identity;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using static StackExchange.Redis.Role;
 
 namespace API.Controllers
 {

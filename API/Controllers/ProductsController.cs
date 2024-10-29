@@ -1,7 +1,7 @@
 using API.Errors;
 using API.Helpers;
 using AutoMapper;
-using Core.Dtos;
+using API.Dtos;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;

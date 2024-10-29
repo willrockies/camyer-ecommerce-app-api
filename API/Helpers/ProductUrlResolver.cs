@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Core.Dtos;
+using API.Dtos;
 using Core.Entities;
 using Microsoft.Extensions.Configuration;
 

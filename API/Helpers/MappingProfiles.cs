@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Core.Dtos;
+using API.Dtos;
 using Core.Entities;
 using Core.Entities.Identity;
 
@@ -14,6 +14,8 @@ namespace API.Helpers
                    //.ForMember(d => d.ProductBrand, o => o.MapFrom(s => s.ProductBrand.name)); caso precise mapear outra entidade
                 .ForMember(d => d.PictureUrl, o => o.MapFrom<ProductUrlResolver>());
             CreateMap<Address, AddressDto>().ReverseMap();
+            CreateMap<CustomerBasketDto,CustomerBasket>();
+            CreateMap<BasketItemDto, BasketItem>();
         }
     }
 }
